@@ -9,6 +9,7 @@ Um projeto Flutter moderno com vídeo de fundo em loop e interface interativa us
 -   **📱 Interface adaptativa** para diferentes dispositivos
 -   **🌐 Suporte completo** para Web, Android, iOS, Windows, macOS e Linux
 -   **⚡ Autoplay inteligente** com fallback automático
+-   **📐 Formato vertical otimizado** (9:16) com dimensões máximas 1080x1920
 
 ## 🚀 Como executar
 
@@ -52,7 +53,8 @@ flutter_hello_world/
 │   └── main.dart          # Arquivo principal da aplicação
 ├── assets/
 │   ├── images/
-│   │   └── botao-jogar.svg    # Botão SVG centralizado
+│   │   ├── botao-jogar.svg    # Botão SVG centralizado
+│   │   └── capa.png           # Imagem de capa (fallback)
 │   └── videos/
 │       └── abdias-video-capa.mp4  # Vídeo de fundo
 ├── pubspec.yaml           # Dependências e configurações
@@ -79,6 +81,13 @@ dependencies:
 -   **Áudio**: Desabilitado (para permitir autoplay)
 -   **Adaptação**: Cover para preencher toda a tela
 
+### Imagem de capa (Fallback)
+
+-   **Formato**: PNG
+-   **Função**: Fallback visual enquanto o vídeo carrega
+-   **Posicionamento**: Fundo da tela com overlay escuro
+-   **Adaptação**: Cover para preencher toda a tela
+
 ### Botão SVG
 
 -   **Formato**: SVG vetorial
@@ -92,6 +101,14 @@ dependencies:
 -   **Cores**: Esquema baseado em roxo profundo
 -   **Layout**: Stack com sobreposição inteligente
 -   **Responsividade**: Adapta-se a diferentes resoluções
+
+### Formato e Dimensões
+
+-   **Orientação**: Vertical (retrato)
+-   **Proporção**: 9:16 (aspect ratio)
+-   **Dimensões máximas**: 1080x1920 pixels
+-   **Otimização**: Mobile-first e web responsivo
+-   **Centragem**: Sempre centralizado na tela
 
 ## 🔧 Desenvolvimento
 
