@@ -10,6 +10,7 @@ Um projeto Flutter moderno com vídeo de fundo em loop e interface interativa us
 -   **🌐 Suporte completo** para Web, Android, iOS, Windows, macOS e Linux
 -   **⚡ Autoplay inteligente** com fallback automático
 -   **📐 Formato vertical otimizado** (9:16) com dimensões máximas 1080x1920
+-   **🖥️ Tela cheia** para totens verticais e notebooks touch
 
 ## 🚀 Como executar
 
@@ -109,6 +110,8 @@ dependencies:
 -   **Dimensões máximas**: 1080x1920 pixels
 -   **Otimização**: Mobile-first e web responsivo
 -   **Centragem**: Sempre centralizado na tela
+-   **Tela cheia**: Suporte completo para totens e notebooks touch
+-   **Responsividade**: Adapta-se automaticamente a qualquer resolução
 
 ## 🔧 Desenvolvimento
 

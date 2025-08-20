@@ -111,140 +111,137 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        // Define dimensões máximas para formato vertical
-        constraints: const BoxConstraints(maxWidth: 1080, maxHeight: 1920),
-        child: Center(
-          child: AspectRatio(
-            // Força proporção 9:16 (vertical)
-            aspectRatio: 9 / 16,
-            child: Stack(
-              children: [
-                // Vídeo de fundo ou fallback
-                if (_isVideoInitialized &&
-                    _videoPlayerController != null &&
-                    _videoStarted)
-                  SizedBox.expand(
-                    child: FittedBox(
-                      fit: BoxFit.cover,
-                      child: SizedBox(
-                        width: _videoPlayerController!.value.size.width,
-                        height: _videoPlayerController!.value.size.height,
-                        child: VideoPlayer(_videoPlayerController!),
-                      ),
-                    ),
-                  )
-                else if (_hasError)
-                  // Fallback quando há erro no vídeo
-                  Container(
-                    color: Colors.black,
-                    child: const Center(
-                      child: Text(
-                        'Erro ao carregar vídeo',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  )
-                else
-                  // Fallback enquanto carrega ou aguarda interação
-                  Container(
-                    color: Colors.black,
-                    child: Stack(
-                      children: [
-                        // Imagem de capa como fundo
-                        SizedBox.expand(
-                          child: Image.asset(
-                            'assets/images/capa.png',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        // Overlay escuro para melhorar legibilidade do texto
-                        Container(
-                          color: Colors.black54,
-                          child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                if (_isVideoInitialized) ...[
-                                  const Text(
-                                    'Vídeo carregado! Se não aparecer automaticamente,\nclique no botão de play no canto inferior direito.',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ] else ...[
-                                  const CircularProgressIndicator(
-                                    color: Colors.white,
-                                  ),
-                                  const SizedBox(height: 16),
-                                  const Text(
-                                    'Carregando vídeo...',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ],
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                // Botão SVG centralizado
-                Center(
-                  child: GestureDetector(
-                    onTap: _onPlayButtonPressed,
-                    child: SizedBox(
-                      width: 200,
-                      height: 200,
-                      child: SvgPicture.asset(
-                        'assets/images/botao-jogar.svg',
-                        fit: BoxFit.contain,
-                      ),
-                    ),
+      // Remove a AppBar para tela cheia
+      body: SizedBox(
+        // Remove restrições para funcionar em qualquer tela
+        width: double.infinity,
+        height: double.infinity,
+        child: Stack(
+          children: [
+            // Vídeo de fundo ou fallback
+            if (_isVideoInitialized &&
+                _videoPlayerController != null &&
+                _videoStarted)
+              SizedBox.expand(
+                child: FittedBox(
+                  fit: BoxFit.cover,
+                  child: SizedBox(
+                    width: _videoPlayerController!.value.size.width,
+                    height: _videoPlayerController!.value.size.height,
+                    child: VideoPlayer(_videoPlayerController!),
                   ),
                 ),
-
-                // Botão Iniciar Vídeo discreto (só aparece se autoplay falhar)
-                if (_isVideoInitialized && !_videoStarted)
-                  Positioned(
-                    bottom: 20,
-                    right: 20,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.black54,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: IconButton(
-                        onPressed: _startVideo,
-                        icon: const Icon(Icons.play_arrow, color: Colors.white),
-                        tooltip: 'Iniciar Vídeo de Fundo',
-                      ),
-                    ),
-                  ),
-
-                // Debug info (remover em produção)
-                Positioned(
-                  top: 40,
-                  left: 10,
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    color: Colors.black54,
+              )
+            else if (_hasError)
+              // Fallback quando há erro no vídeo
+              SizedBox.expand(
+                child: Container(
+                  color: Colors.black,
+                  child: const Center(
                     child: Text(
-                      'Status: ${_isVideoInitialized
-                          ? (_videoStarted ? "Vídeo Reproduzindo" : "Aguardando Clique")
-                          : _hasError
-                          ? "Erro"
-                          : "Carregando"}',
-                      style: const TextStyle(color: Colors.white, fontSize: 12),
+                      'Erro ao carregar vídeo',
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                 ),
-              ],
+              )
+            else
+              // Fallback enquanto carrega ou aguarda interação
+              SizedBox.expand(
+                child: Stack(
+                  children: [
+                    // Imagem de capa como fundo
+                    SizedBox.expand(
+                      child: Image.asset(
+                        'assets/images/capa.png',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    // Overlay escuro para melhorar legibilidade do texto
+                    Container(
+                      color: Colors.black54,
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            if (_isVideoInitialized) ...[
+                              const Text(
+                                'Vídeo carregado! Se não aparecer automaticamente,\nclique no botão de play no canto inferior direito.',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ] else ...[
+                              const CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                              const SizedBox(height: 16),
+                              const Text(
+                                'Carregando vídeo...',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ],
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+            // Botão SVG centralizado
+            Center(
+              child: GestureDetector(
+                onTap: _onPlayButtonPressed,
+                child: SizedBox(
+                  width: 200,
+                  height: 200,
+                  child: SvgPicture.asset(
+                    'assets/images/botao-jogar.svg',
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
             ),
-          ),
+
+            // Botão Iniciar Vídeo discreto (só aparece se autoplay falhar)
+            if (_isVideoInitialized && !_videoStarted)
+              Positioned(
+                bottom: 20,
+                right: 20,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.black54,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: IconButton(
+                    onPressed: _startVideo,
+                    icon: const Icon(Icons.play_arrow, color: Colors.white),
+                    tooltip: 'Iniciar Vídeo de Fundo',
+                  ),
+                ),
+              ),
+
+            // Debug info (remover em produção)
+            Positioned(
+              top: 40,
+              left: 10,
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                color: Colors.black54,
+                child: Text(
+                  'Status: ${_isVideoInitialized
+                      ? (_videoStarted ? "Vídeo Reproduzindo" : "Aguardando Clique")
+                      : _hasError
+                      ? "Erro"
+                      : "Carregando"}',
+                  style: const TextStyle(color: Colors.white, fontSize: 12),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
