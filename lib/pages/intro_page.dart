@@ -12,16 +12,6 @@ class _IntroPageState extends State<IntroPage> {
   final VideoBackgroundController _videoController =
       VideoBackgroundController();
 
-  void _startVideo() async {
-    await _videoController.play();
-    debugPrint('Vídeo iniciado manualmente!');
-  }
-
-  void _stopVideo() async {
-    await _videoController.stop();
-    debugPrint('Vídeo parado!');
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,40 +68,6 @@ class _IntroPageState extends State<IntroPage> {
               ),
 
               const SizedBox(height: 60),
-
-              // Botão para iniciar o vídeo de fundo
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.blue.withOpacity(0.8),
-                  borderRadius: BorderRadius.circular(25),
-                ),
-                child: IconButton(
-                  onPressed: _startVideo,
-                  icon: const Icon(
-                    Icons.play_arrow,
-                    color: Colors.white,
-                    size: 32,
-                  ),
-                  tooltip: 'Iniciar Vídeo de Fundo',
-                ),
-              ),
-
-              const SizedBox(height: 20),
-
-              // Botão para parar o vídeo
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.red.withOpacity(0.8),
-                  borderRadius: BorderRadius.circular(25),
-                ),
-                child: IconButton(
-                  onPressed: _stopVideo,
-                  icon: const Icon(Icons.stop, color: Colors.white, size: 32),
-                  tooltip: 'Parar Vídeo de Fundo',
-                ),
-              ),
-
-              const SizedBox(height: 20),
 
               // Botão para voltar
               ElevatedButton(
