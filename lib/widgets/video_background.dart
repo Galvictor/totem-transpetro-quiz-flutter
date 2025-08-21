@@ -103,6 +103,15 @@ class _VideoBackgroundState extends State<VideoBackground> {
         'Configurações: autoplay=${widget.autoplay}, loop=${widget.loop}, volume=${widget.volume}',
       );
 
+      // Limpa estado anterior
+      if (mounted) {
+        setState(() {
+          _isVideoInitialized = false;
+          _hasError = false;
+          _videoStarted = false;
+        });
+      }
+
       // Cria controller baseado no tipo de vídeo
       if (widget.videoPath.startsWith('http')) {
         // URL externa
@@ -199,39 +208,46 @@ class _VideoBackgroundState extends State<VideoBackground> {
 
   @override
   void dispose() {
+    // Remove o listener antes de dispor
+    _videoPlayerController?.removeListener(_videoListener);
     _videoPlayerController?.dispose();
     super.dispose();
   }
 
+  // Listener separado para evitar recriação
+  void _videoListener() {
+    if (!mounted || _videoPlayerController == null) return;
+
+    // Verifica se o vídeo terminou
+    if (_videoPlayerController!.value.position >=
+        _videoPlayerController!.value.duration) {
+      if (_videoPlayerController!.value.duration > Duration.zero) {
+        debugPrint(
+          '🎬 Vídeo terminou! Duração: ${_videoPlayerController!.value.duration}',
+        );
+        debugPrint(
+          '📍 Posição final: ${_videoPlayerController!.value.position}',
+        );
+
+        // Atualiza o controller externo
+        if (widget.controller != null) {
+          widget.controller!._setPlaying(false);
+        }
+
+        // Atualiza o estado local
+        if (mounted) {
+          setState(() {
+            _videoStarted = false;
+          });
+        }
+        widget.onVideoFinished?.call();
+      }
+    }
+  }
+
   void _addVideoListener() {
     if (_videoPlayerController != null) {
-      _videoPlayerController!.addListener(() {
-        // Verifica se o vídeo terminou
-        if (_videoPlayerController!.value.position >=
-            _videoPlayerController!.value.duration) {
-          if (_videoPlayerController!.value.duration > Duration.zero) {
-            debugPrint(
-              '🎬 Vídeo terminou! Duração: ${_videoPlayerController!.value.duration}',
-            );
-            debugPrint(
-              '📍 Posição final: ${_videoPlayerController!.value.position}',
-            );
-
-            // Atualiza o controller externo
-            if (widget.controller != null) {
-              widget.controller!._setPlaying(false);
-            }
-
-            // Atualiza o estado local
-            if (mounted) {
-              setState(() {
-                _videoStarted = false;
-              });
-            }
-            widget.onVideoFinished?.call();
-          }
-        }
-      });
+      _videoPlayerController!.addListener(_videoListener);
     }
   }
 
@@ -297,6 +313,12 @@ class _VideoBackgroundState extends State<VideoBackground> {
                     child: Image.asset(
                       widget.fallbackImagePath!,
                       fit: widget.fit,
+                      errorBuilder: (context, error, stackTrace) {
+                        debugPrint(
+                          'Erro ao carregar imagem de fallback: $error',
+                        );
+                        return Container(color: Colors.black);
+                      },
                     ),
                   )
                 else

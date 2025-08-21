@@ -22,7 +22,7 @@ class ResponsivePlayButton extends StatelessWidget {
           builder: (context, constraints) {
             // Calcula tamanho responsivo baseado na tela
             final screenWidth = constraints.maxWidth;
-            final screenHeight = constraints.maxHeight;
+            //final screenHeight = constraints.maxHeight;
 
             // Base: 435x172 em 1080x1920
             // Calcula proporção para outras resoluções

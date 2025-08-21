@@ -37,7 +37,9 @@ class _IntroPageState extends State<IntroPage> {
         },
         onVideoFinished: () {
           debugPrint('🎬 Vídeo da Intro terminou!');
-          debugPrint('✅ Pronto para próxima ação!');
+          debugPrint('✅ Voltando automaticamente para Home...');
+          // Volta automaticamente para a Home
+          Navigator.pop(context);
         },
         // Conteúdo sobreposto ao vídeo
         child: Center(
