@@ -17,7 +17,7 @@ class MyHomePage extends StatelessWidget {
       // Remove a AppBar para tela cheia
       body: VideoBackground(
         // Vídeo de fundo principal
-        videoPath: 'assets/videos/abdias-video-capa.mp4',
+        videoPath: 'assets/videos/loop.mp4',
         // Imagem de fallback enquanto carrega
         fallbackImagePath: 'assets/images/capa.png',
         // Configurações do vídeo

@@ -18,7 +18,7 @@ class _IntroPageState extends State<IntroPage> {
       backgroundColor: Colors.black,
       body: VideoBackground(
         // Vídeo de fundo para a página intro
-        videoPath: 'assets/videos/Ofical+A+-+fala+1+-+com+intro.mp4',
+        videoPath: 'assets/videos/intro.mp4',
         // Imagem de fallback enquanto carrega
         fallbackImagePath: 'assets/images/capa.png',
         // Configurações do vídeo
