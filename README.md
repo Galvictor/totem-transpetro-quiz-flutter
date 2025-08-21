@@ -92,9 +92,13 @@ dependencies:
 ### Botão SVG
 
 -   **Formato**: SVG vetorial
--   **Tamanho**: 200x200 pixels
--   **Posicionamento**: Centralizado na tela
--   **Interatividade**: Clique responsivo
+-   **Dimensões originais**: 435x172 pixels
+-   **Base de referência**: 1080x1920 (full HD vertical)
+-   **Escala responsiva**: Proporcional à largura da tela
+-   **Limites**: Largura 200-600px, Altura 80-240px
+-   **Posicionamento**: Próximo ao bottom (100px do fundo)
+-   **Interatividade**: Clique responsivo e adaptativo
+-   **Responsividade**: Mantém proporção original em qualquer resolução
 
 ### Interface
 
